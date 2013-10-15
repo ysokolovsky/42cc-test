@@ -1,0 +1,16 @@
+[
+  {
+    "model": "contact.contact",
+    "pk": 1,
+    "fields": {
+      "f_name": "Yaroslav",
+      "l_name": "Sokolovsky",
+      "bday": "1990-01-24",
+      "bio": "KPI",
+      "email": "yaroslav.sokolovsky@gmail.com",
+      "jabber": "ysokolovsky@42cc.co",
+      "skype": "sokolovsky.y",
+      "other": "https://github.com/ysokolovsky"
+    }
+  }
+]
