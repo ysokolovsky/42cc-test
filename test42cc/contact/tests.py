@@ -1,19 +1,17 @@
-from django.test import LiveServerTestCase
-from selenium import webdriver
+from django_webtest import WebTest
+from django.core.urlresolvers import reverse
+from django.http import HttpRequest
+from django.template import RequestContext
 
 
-class T1Test(LiveServerTestCase):
-	fixtures = ['initial_data.json']
+class TestContact(WebTest):
+    fixtures = ['initial_data.json']
 
-	def setUp(self):
-		self.browser = webdriver.Firefox()
-		self.browser.implicitly_wait(3)
-
-	def tearDown(self):
-		self.browser.quit()
-
-	def test_t1(self):
-		self.browser.get(self.live_server_url)
-		body = self.browser.find_element_by_tag_name('body')
-		self.assertIn('Yaroslav', body.text)
-		self.assertIn('sokolovsky.y', body.text)
+    def test_t1_base(self):
+        page = self.app.get(reverse('test42cc.contact.views.index'))
+        assert u"Name" in page
+        assert u"Last name" in page
+        assert u"Yaroslav" in page
+        assert u"Bio" in page
+        assert u"Date of birth" in page
+        assert u"1990" in page
