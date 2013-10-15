@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block contact %}
 <div class="row">
-  <div class="span4">
+  <div class="col-md-6">
 	<p>Name: {{ contact.f_name }}</p>
 	<p>Last name: {{ contact.l_name }}</p>
 	<p>Date of birth: {{ contact.bday }}</p>
 	<p>Bio:</p>
 	<p>{{ contact.bio }}</p>
   </div>
-  <div class="span4">
+  <div class="col-md-6">
 	<p>Contacts:</p>
 	<p>Email: {{ contact.email }}</p>
 	<p>Jabber: {{ contact.jabber }}</p>
