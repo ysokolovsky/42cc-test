@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from models import Contact
+from test42cc.contact.models import Contact
 
 
 def index(request):
