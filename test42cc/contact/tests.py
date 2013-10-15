@@ -8,7 +8,7 @@ from django.template import RequestContext
 class TestContact(WebTest):
 
     def test_t1_base(self):
-        page = self.app.get(reverse('test_42cc.contact.views.index'))
+        page = self.app.get(reverse('contact.views.index'))
         assert u"Name" in page
         assert u"Last name" in page
         assert u"Yaroslav" in page
