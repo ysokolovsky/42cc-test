@@ -6,12 +6,12 @@ from test42cc.contact.models import Contact, Request
 def index(request):
     contact = Contact.objects.get(pk=1)
     return render_to_response(
-        'contact.html', {'contact': contact},
+        'contact/contact.html', {'contact': contact},
         context_instance=RequestContext(request))
 
 
 def show_requests(request):
     requests = Request.objects.all().order_by('-time')[:10]
     return render_to_response(
-        'requests.html', {'requests': requests},
+        'contact/requests.html', {'requests': requests},
         context_instance=RequestContext(request))
