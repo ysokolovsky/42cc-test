@@ -3,6 +3,7 @@ SETTINGS = settings
 
 PWD = $(pwd)
 MANAGESCRIPT = django-admin.py
+M = manage.py
 MANAGE = PYTHONPATH=$(PWD) DJANGO_SETTINGS_MODULE=$(APP).$(SETTINGS) $(MANAGESCRIPT)
 
 test:
@@ -13,3 +14,4 @@ run:
 
 syncdb:
 	$(MANAGE) syncdb
+	python manage.py migrate
