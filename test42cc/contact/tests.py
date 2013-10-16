@@ -1,7 +1,6 @@
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
-from django.http import HttpRequest
-from django.template import RequestContext
+from test_42cc.contact.models import Request
 
 
 class TestContact(WebTest):
