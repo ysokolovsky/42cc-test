@@ -15,3 +15,10 @@ def show_requests(request):
     return render_to_response(
         'requests.html', {'requests': requests},
         context_instance=RequestContext(request))
+
+
+def edit_contacts(request):
+    contact = Contact.objects.get(pk=1)
+    return render_to_response(
+        'edit.html', {'contact': contact},
+        context_instance=RequestContext(request))
