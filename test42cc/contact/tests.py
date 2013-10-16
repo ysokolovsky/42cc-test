@@ -4,6 +4,7 @@ from test42cc.contact.models import Request
 from django.http import HttpRequest
 from django.template import RequestContext
 
+
 class TestContact(WebTest):
     fixtures = ['initial_data.json']
 
@@ -21,6 +22,15 @@ class TestContact(WebTest):
         self.assertEqual(page.status, '200 OK')
         req = Request.objects.get(pk=1)
         assert reverse('test42cc.contact.views.show_requests') in req.path
+        assert 'GET' in req.method
+        print req
+        for x in xrange(0,10):
+            page = self.app.get(reverse('test42cc.contact.views.show_requests'))
+        count = Request.objects.count()
+        self.assertEqual(count, 11)
+        page = self.app.get(reverse('test42cc.contact.views.show_requests'))
+        self.assertEqual(str(page).count("Time:"), 10)
+        
 
     def test_t4_contx_proc(self):
         context = RequestContext(HttpRequest())
