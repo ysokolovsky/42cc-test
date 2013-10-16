@@ -15,3 +15,9 @@ class TestContact(WebTest):
         assert u"Bio" in page
         assert u"Date of birth" in page
         assert u"1990" in page
+
+    def test_t3_midreq(self):
+        page = self.app.get(reverse('test_42cc.contact.views.show_requests'))
+        self.assertEqual(page.status, '200 OK')
+        req = Request.objects.get(pk=1)
+        assert reverse('test_42cc.contact.views.show_requests') in req.path
