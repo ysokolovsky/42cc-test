@@ -1,4 +1,4 @@
-from test_42cc.contact.models import Request
+from test42cc.contact.models import Request
 
 
 class RequestMiddleware(object):

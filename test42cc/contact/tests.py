@@ -1,6 +1,6 @@
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
-from test_42cc.contact.models import Request
+from test42cc.contact.models import Request
 
 
 class TestContact(WebTest):
@@ -16,7 +16,7 @@ class TestContact(WebTest):
         assert u"1990" in page
 
     def test_t3_midreq(self):
-        page = self.app.get(reverse('test_42cc.contact.views.show_requests'))
+        page = self.app.get(reverse('test42cc.contact.views.show_requests'))
         self.assertEqual(page.status, '200 OK')
         req = Request.objects.get(pk=1)
-        assert reverse('test_42cc.contact.views.show_requests') in req.path
+        assert reverse('test42cc.contact.views.show_requests') in req.path
