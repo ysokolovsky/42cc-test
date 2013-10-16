@@ -1,7 +1,8 @@
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from test42cc.contact.models import Request
-
+from django.http import HttpRequest
+from django.template import RequestContext
 
 class TestContact(WebTest):
     fixtures = ['initial_data.json']
@@ -20,3 +21,7 @@ class TestContact(WebTest):
         self.assertEqual(page.status, '200 OK')
         req = Request.objects.get(pk=1)
         assert reverse('test42cc.contact.views.show_requests') in req.path
+
+    def test_t4_contx_proc(self):
+        context = RequestContext(HttpRequest())
+        self.assertTrue('settings' in context)
