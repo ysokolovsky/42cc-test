@@ -12,7 +12,6 @@ def index(request):
 
 def show_requests(request):
     requests = Request.objects.all().order_by('time')[:10]
-    
     return render_to_response(
         'requests/requests.html', {'requests': requests},
         context_instance=RequestContext(request))
