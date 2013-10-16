@@ -1,5 +1,23 @@
 [
   {
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-10-16T10:06:27.663", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$h5a9Sehr8jyM$RoR2hxtq8cKSkRUTtBQ/r3QDkcIdsOZS4QoMRQUD1bM=", 
+        "email": "yaroslav.sokolovsky@gmail.com", 
+        "date_joined": "2013-10-16T10:06:27.663"
+    }
+  },
+  {
     "model": "contact.contact",
     "pk": 1,
     "fields": {
