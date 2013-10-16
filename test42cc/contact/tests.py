@@ -4,6 +4,7 @@ from test42cc.contact.models import Request
 from django.http import HttpRequest
 from django.template import RequestContext
 
+
 class TestContact(WebTest):
     fixtures = ['initial_data.json']
 
