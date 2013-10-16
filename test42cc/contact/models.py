@@ -16,7 +16,7 @@ class Contact(models.Model):
 
 
 class Request(models.Model):
-    time = models.DateTimeField(auto_now=True)
+    time = models.DateTimeField(auto_now_add = True)
     host = models.CharField(max_length=255)
     path = models.CharField(max_length=255)
     method = models.CharField(max_length=255)
