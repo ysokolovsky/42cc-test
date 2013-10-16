@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block requests %}
+<div class="row">
+
+{% for r in requests %}
+  <div class="span12">
+  <hr>
+  <p>Time: {{ r.time }}</p>
+  <p>Host: {{ r.host }}</p>
+  <p>Path: {{ r.path }}</p>
+  <p>method: {{ r.method }}</p>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
