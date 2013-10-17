@@ -29,16 +29,15 @@ class TestContact(WebTest):
         self.assertEqual(count, 11)
         page = self.app.get(reverse('show_requests'))
         self.assertEqual(str(page).count("Time:"), 10)
-        
 
     def test_t4_contx_proc(self):
         context = RequestContext(HttpRequest())
         self.assertTrue('settings' in context)
 
     def test_t5_edit(self):
-    	page = self.app.get(reverse('edit_contacts'))
-    	self.assertRedirects(page, reverse('login')+'?next=/edit/')
-    	self.client.login(username='admin', password='admin')
+        page = self.app.get(reverse('edit_contacts'))
+        self.assertRedirects(page, reverse('login')+'?next=/edit/')
+        self.client.login(username='admin', password='admin')
         page = self.client.get(reverse('edit_contacts'))
         self.assertEqual(page.status_code, 200)
         data = {
