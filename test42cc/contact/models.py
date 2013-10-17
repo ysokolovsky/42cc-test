@@ -10,6 +10,7 @@ class Contact(models.Model):
     jabber = models.EmailField()
     skype = models.CharField(max_length=60)
     other = models.TextField()
+    photo = models.ImageField(upload_to='photo', blank=True, null=True)
 
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
