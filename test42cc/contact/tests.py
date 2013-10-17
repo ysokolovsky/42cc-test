@@ -52,3 +52,7 @@ class TestContact(WebTest):
         }
         page = self.client.post(reverse('edit_contacts'), data)
         self.assertRedirects(page, reverse('index'))
+        page = self.app.get(reverse('index'))
+        assert u"foo" in page
+
+
