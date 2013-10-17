@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block edit %}
+
+<form role="form" enctype="multipart/form-data" method="POST">
+{% csrf_token %}
+<div class="row">
+<div class="col-md-6">
+
+  <div class="form-group">
+    <label for="{{ form.f_name.id_for_label }}">Name</label>
+    {{ form.f_name.errors }}
+    <input type="text" class="form-control" id="{{ form.f_name.id_for_label }}" name="{{ form.f_name.name }}" value="{{ contact.f_name }}">
+  </div>
+  <div class="form-group">
+    <label for="{{ form.l_name.id_for_label }}">Last name</label>
+    {{ form.l_name.errors }}
+    <input type="text" class="form-control" id="{{ form.l_name.id_for_label }}" name="{{ form.l_name.name }}" value="{{ contact.l_name }}">
+  </div>
+  <div class="form-group">
+    <label for="{{ form.bday.id_for_label }}">Date of birth</label>
+    {{ form.bday.errors }}
+    <input type="text" class="form-control" id="{{ form.bday.id_for_label }}" name="{{ form.bday.name }}" value="{{ contact.bday }}">
+  </div>
+  <div class="form-group">
+    <label for="{{ form.bio.id_for_label }}">Bio</label>
+    {{ form.bio.errors }}
+    <textarea rows="3" class="form-control" name="{{ form.bio.name }}" id="{{ form.bio.id_for_label }}">{{ contact.bio }}</textarea>
+  </div>
+
+
+
+</div>
+
+<div class="col-md-6">
+	<div class="form-group">
+      <label for="{{ form.email.id_for_label }}">Email</label>
+      {{ form.email.errors }}
+      <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" value="{{ contact.email }}">
+    </div>
+    <div class="form-group">
+      <label for="{{ form.jabber.id_for_label }}">Jabber</label>
+      {{ form.jabber.errors }}
+      <input type="text" class="form-control" id="{{ form.jabber.id_for_label }}" name="{{ form.jabber.name }}" value="{{ contact.jabber }}">
+    </div>
+    <div class="form-group">
+      <label for="{{ form.skype.id_for_label }}">Skype</label>
+      {{ form.skype.errors }}
+      <input type="text" class="form-control" id="{{ form.skype.id_for_label }}" name="{{ form.skype.name }}" value="{{ contact.skype }}">
+    </div>
+    <div class="form-group">
+      <label for="{{ form.other.id_for_label }}">Other contacts</label>
+      {{ form.other.errors }}
+      <textarea rows="3" class="form-control" name="{{ form.other.name }}" id="{{ form.other.id_for_label }}">{{ contact.other }}</textarea>
+    </div>
+</div>
+
+<div class="col-md-11">
+  <button type="submit" class="btn btn-default">Submit</button>
+  
+</div>
+</form>
+{% endblock %}

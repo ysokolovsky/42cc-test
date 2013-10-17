@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'test42cc.contact',
 )
 
+LOGIN_URL = '/login/'
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
