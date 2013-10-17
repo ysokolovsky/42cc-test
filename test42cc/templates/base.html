@@ -27,10 +27,17 @@
           <a class="navbar-brand" href="#">ysokolovsky test task</a>
         </div>
         <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav pull-left">
             <li><a href="{% url 'index' %}">Contacts</a></li>
             <li><a href="{% url 'show_requests' %}">Requests</a></li>
-            <li><a href="{% url 'edit_contacts' %}">Login</a></li>
+            <li><a href="{% url 'edit_contacts' %}">Edit</a></li>
+          </ul>
+          <ul class="nav navbar-nav pull-right">
+              {% if user.is_authenticated %}
+                 <li><a href="{% url 'logout' %}">Logout</a></li>
+              {% else %}
+                 <li><a href="{% url 'login' %}">Login</a></li>
+              {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
