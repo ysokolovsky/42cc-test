@@ -4,6 +4,7 @@ from test42cc.contact.models import Contact, Request
 from test42cc.contact.forms import ContactForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
 
 def index(request):
@@ -28,9 +29,9 @@ def edit_contacts(request):
         form = ContactForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
             form.save()
-            return redirect('/')   
+            return redirect(reverse('index'))
     else:
-        form = ContactForm() # An unbound form
+        form = ContactForm()
 
     return render_to_response(
         'contact/edit.html', {'contact': contact, 'form': form},
