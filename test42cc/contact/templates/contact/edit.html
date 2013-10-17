@@ -26,6 +26,11 @@
     {{ form.bio.errors }}
     <textarea rows="3" class="form-control" name="{{ form.bio.name }}" id="{{ form.bio.id_for_label }}">{{ contact.bio }}</textarea>
   </div>
+  <div class="form-group">
+    <label for="{{ form.photo.id_for_label }}">Photo</label>
+    <img width="300" src="{{MEDIA_URL}}{{contact.photo}}">
+    <input type="file" id="{ form.photo.id_for_label }}" name="{{ form.photo.name }}">
+  </div>
 
 
 
@@ -56,7 +61,7 @@
 
 <div class="col-md-11">
   <button type="submit" class="btn btn-default">Submit</button>
-  
+  <a href='{% url 'index' %}'>Cancel</a>
 </div>
 </form>
 {% endblock %}
