@@ -9,7 +9,7 @@ class TestContact(WebTest):
     fixtures = ['initial_data.json']
 
     def test_t1_base(self):
-        page = self.app.get(reverse('test42cc.contact.views.index'))
+        page = self.app.get(reverse('index'))
         assert u"Name" in page
         assert u"Last name" in page
         assert u"Yaroslav" in page
@@ -18,17 +18,16 @@ class TestContact(WebTest):
         assert u"1990" in page
 
     def test_t3_midreq(self):
-        page = self.app.get(reverse('test42cc.contact.views.show_requests'))
+        page = self.app.get(reverse('show_requests'))
         self.assertEqual(page.status, '200 OK')
         req = Request.objects.get(pk=1)
-        assert reverse('test42cc.contact.views.show_requests') in req.path
+        assert reverse('show_requests') in req.path
         assert 'GET' in req.method
-        print req
         for x in xrange(0,10):
-            page = self.app.get(reverse('test42cc.contact.views.show_requests'))
+            page = self.app.get(reverse('show_requests'))
         count = Request.objects.count()
         self.assertEqual(count, 11)
-        page = self.app.get(reverse('test42cc.contact.views.show_requests'))
+        page = self.app.get(reverse('show_requests'))
         self.assertEqual(str(page).count("Time:"), 10)
         
 
