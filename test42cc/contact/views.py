@@ -29,7 +29,7 @@ def edit_contacts(request):
         form = ContactForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
             form.save()
-            success_message = 'data saved'
+            success_message = 'Data saved'
     else:
         form = ContactForm()
 

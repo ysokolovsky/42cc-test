@@ -13,15 +13,13 @@ $(document).ready(function () {
             url: $(this).attr('action'), // the file to call
             beforeSend: function() {
                         $("#form :input").attr("disabled", true);
-                        $('#success_message').text('loading...');
+                        $('#success_message').text('Loading...');
                             },
             success: function(response) { // on success..
                      $("#form :input").attr("disabled", false);
-                     $('#success_message').text('data saved');
-            },
-            error: function(e, x, r) { // on error..
-
+                     $('#success_message').text('Data saved');
             }
+
         });
         return false;
     });
