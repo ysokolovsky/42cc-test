@@ -47,12 +47,31 @@ class TestContact(WebTest):
             'bio': 'bio',
             'email': 'ya@yandex.ru',
             'jabber': 'ya@jabber.org',
-            'skype': 'skype',
-            'other': 'other'
+            'skype': 'skype1',
+            'other': 'other2'
         }
         page = self.client.post(reverse('edit_contacts'), data)
         self.assertRedirects(page, reverse('index'))
         page = self.app.get(reverse('index'))
         assert u"foo" in page
-
+        assert u"bar" in page
+        assert u"2000-12-12" in page
+        assert u"bio" in page
+        assert u"ya@yandex.ru" in page
+        assert u"ya@jabber.org" in page
+        assert u"skype1" in page
+        assert u"other2" in page
+        data = {
+            'f_name': "foo",
+            'l_name': "",
+            'bday': 'ghggjjhg',
+            'bio': 'bio',
+            'email': 'ya@yandex.ru',
+            'jabber': 'ya@jabber.org',
+            'skype': 'skype1',
+            'other': 'other2'
+        }
+        page = self.client.post(reverse('edit_contacts'), data)
+        self.assertContains(page, 'This field is required')
+        self.assertContains(page, 'valid date')
 
