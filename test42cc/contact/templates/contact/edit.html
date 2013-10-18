@@ -1,37 +1,36 @@
 {% extends "base.html" %}
 {% block edit %}
-
-<form role="form" class="form-horizontal" enctype="multipart/form-data" method="POST">
+{{ form.media }}
+<form role="form" class="form-horizontal" enctype="multipart/form-data" method="POST" id="form">
 {% csrf_token %}
 <div class="row">
 <div class="col-md-6">
-
   <div class="form-group" >
     <span class="help-block">{{ form.f_name.errors }}</span>
     <label class="col-lg-3 control-label" for="{{ form.f_name.id_for_label }}">Name</label>
     <div class="col-lg-6">
-        <input type="text" class="form-control" id="{{ form.f_name.id_for_label }}" name="{{ form.f_name.name }}" value="{{ contact.f_name }}">
+        {{ form.f_name }}
     </div>
   </div>
   <div class="form-group">
     <span class="help-block">{{ form.l_name.errors }}</span>
     <label class="col-lg-3 control-label" for="{{ form.l_name.id_for_label }}">Last name</label>
       <div class="col-lg-6">
-    <input type="text" class="form-control" id="{{ form.l_name.id_for_label }}" name="{{ form.l_name.name }}" value="{{ contact.l_name }}">
+        {{ form.l_name }}
        </div>
   </div>
   <div class="form-group">
       <span class="help-block">{{ form.bday.errors }}</span>
     <label class="col-lg-3 control-label" for="{{ form.bday.id_for_label }}">Date of birth</label>
       <div class="col-lg-6">
-    <input type="text" class="form-control" id="{{ form.bday.id_for_label }}" name="{{ form.bday.name }}" value="{{ contact.bday|date:"Y-m-d" }}">
+          {{ form.bday }}
           </div>
   </div>
   <div class="form-group">
     <span class="help-block">{{ form.photo.errors }}</span>
     <label class="col-lg-3 control-label" for="{{ form.photo.id_for_label }}">Photo</label>
     <div class="col-lg-6">
-      <input type="file" id="{ form.photo.id_for_label }}" name="{{ form.photo.name }}">
+      {{ form.photo }}
         </div>
 
   </div>
@@ -43,43 +42,44 @@
       <span class="help-block">{{ form.email.errors }}</span>
       <label class="col-lg-3 control-label" for="{{ form.email.id_for_label }}">Email</label>
         <div class="col-lg-6">
-      <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" value="{{ contact.email }}">
+      {{ form.email }}
             </div>
     </div>
     <div class="form-group">
       <span class="help-block">{{ form.jabber.errors }}</span>
       <label class="col-lg-3 control-label" for="{{ form.jabber.id_for_label }}">Jabber</label>
         <div class="col-lg-6">
-      <input type="text" class="form-control" id="{{ form.jabber.id_for_label }}" name="{{ form.jabber.name }}" value="{{ contact.jabber }}">
+      {{ form.jabber }}
             </div>
     </div>
     <div class="form-group">
       <span class="help-block">{{ form.skype.errors }}</span>
       <label class="col-lg-3 control-label" for="{{ form.skype.id_for_label }}">Skype</label>
         <div class="col-lg-6">
-      <input type="text" class="form-control" id="{{ form.skype.id_for_label }}" name="{{ form.skype.name }}" value="{{ contact.skype }}">
+      {{ form.skype }}
             </div>
     </div>
     <div class="form-group">
       <span class="help-block">{{ form.other.errors }}</span>
       <label class="col-lg-3 control-label" for="{{ form.other.id_for_label }}">Other contacts</label>
         <div class="col-lg-6">
-      <textarea rows="3" class="form-control" name="{{ form.other.name }}" id="{{ form.other.id_for_label }}">{{ contact.other }}</textarea>
+      {{ form.other }}
             </div>
     </div>
     <div class="form-group">
         <span class="help-block">{{ form.bio.errors }}</span>
         <label class="col-lg-3 control-label" for="{{ form.bio.id_for_label }}">Bio</label>
         <div class="col-lg-6">
-    <textarea rows="3" class="form-control" name="{{ form.bio.name }}" id="{{ form.bio.id_for_label }}">{{ contact.bio }}</textarea>
+        {{ form.bio }}
             </div>
   </div>
 </div>
 
 <div class="col-md-11 col-md-offset-1">
-    <br/>
-  <button type="submit" class="btn btn-default">Submit</button>
-  <a href='{% url 'index' %}'>Cancel</a>
+    <p><b id="success_message">{{ success_message }}</b></p>
+  <p><button type="submit" class="btn btn-default" id="submit" value="Submit">Submit</button>
+  <a href='{% url 'index' %}'>Cancel</a></p>
 </div>
+ </div>
 </form>
 {% endblock %}
