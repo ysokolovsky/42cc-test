@@ -24,15 +24,15 @@ def show_requests(request):
 @login_required()
 def edit_contacts(request):
     contact = Contact.objects.get(pk=1)
-
+    success_message = ''
     if request.method == 'POST':
         form = ContactForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
             form.save()
-            return redirect(reverse('index'))
+            success_message = 'Data saved'
     else:
         form = ContactForm()
 
     return render_to_response(
-        'contact/edit.html', {'contact': contact, 'form': form},
+        'contact/edit.html', {'contact': contact, 'form': form, 'success_message': success_message},
         context_instance=RequestContext(request))

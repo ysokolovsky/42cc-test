@@ -13,5 +13,5 @@ run:
 	$(MANAGE) runserver
 
 syncdb:
-	$(MANAGE) syncdb --no-initial-data
+	$(MANAGE) syncdb --noinput
 	python manage.py migrate
