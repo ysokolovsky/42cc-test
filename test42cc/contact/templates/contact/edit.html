@@ -7,27 +7,28 @@
 <div class="col-md-6">
 
   <div class="form-group" >
-    {{ form.f_name.errors }}
+    <span class="help-block">{{ form.f_name.errors }}</span>
     <label class="col-lg-3 control-label" for="{{ form.f_name.id_for_label }}">Name</label>
     <div class="col-lg-6">
         <input type="text" class="form-control" id="{{ form.f_name.id_for_label }}" name="{{ form.f_name.name }}" value="{{ contact.f_name }}">
     </div>
   </div>
   <div class="form-group">
+    <span class="help-block">{{ form.l_name.errors }}</span>
     <label class="col-lg-3 control-label" for="{{ form.l_name.id_for_label }}">Last name</label>
-    {{ form.l_name.errors }}
       <div class="col-lg-6">
     <input type="text" class="form-control" id="{{ form.l_name.id_for_label }}" name="{{ form.l_name.name }}" value="{{ contact.l_name }}">
        </div>
   </div>
   <div class="form-group">
+      <span class="help-block">{{ form.bday.errors }}</span>
     <label class="col-lg-3 control-label" for="{{ form.bday.id_for_label }}">Date of birth</label>
-    {{ form.bday.errors }}
       <div class="col-lg-6">
     <input type="text" class="form-control" id="{{ form.bday.id_for_label }}" name="{{ form.bday.name }}" value="{{ contact.bday|date:"Y-m-d" }}">
           </div>
   </div>
   <div class="form-group">
+    <span class="help-block">{{ form.photo.errors }}</span>
     <label class="col-lg-3 control-label" for="{{ form.photo.id_for_label }}">Photo</label>
     <div class="col-lg-6">
       <input type="file" id="{ form.photo.id_for_label }}" name="{{ form.photo.name }}">
@@ -39,36 +40,36 @@
 
 <div class="col-md-6">
 	<div class="form-group">
+      <span class="help-block">{{ form.email.errors }}</span>
       <label class="col-lg-3 control-label" for="{{ form.email.id_for_label }}">Email</label>
-      {{ form.email.errors }}
         <div class="col-lg-6">
       <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" value="{{ contact.email }}">
             </div>
     </div>
     <div class="form-group">
+      <span class="help-block">{{ form.jabber.errors }}</span>
       <label class="col-lg-3 control-label" for="{{ form.jabber.id_for_label }}">Jabber</label>
-      {{ form.jabber.errors }}
         <div class="col-lg-6">
       <input type="text" class="form-control" id="{{ form.jabber.id_for_label }}" name="{{ form.jabber.name }}" value="{{ contact.jabber }}">
             </div>
     </div>
     <div class="form-group">
+      <span class="help-block">{{ form.skype.errors }}</span>
       <label class="col-lg-3 control-label" for="{{ form.skype.id_for_label }}">Skype</label>
-      {{ form.skype.errors }}
         <div class="col-lg-6">
       <input type="text" class="form-control" id="{{ form.skype.id_for_label }}" name="{{ form.skype.name }}" value="{{ contact.skype }}">
             </div>
     </div>
     <div class="form-group">
+      <span class="help-block">{{ form.other.errors }}</span>
       <label class="col-lg-3 control-label" for="{{ form.other.id_for_label }}">Other contacts</label>
-      {{ form.other.errors }}
         <div class="col-lg-6">
       <textarea rows="3" class="form-control" name="{{ form.other.name }}" id="{{ form.other.id_for_label }}">{{ contact.other }}</textarea>
             </div>
     </div>
     <div class="form-group">
+        <span class="help-block">{{ form.bio.errors }}</span>
         <label class="col-lg-3 control-label" for="{{ form.bio.id_for_label }}">Bio</label>
-        {{ form.bio.errors }}
         <div class="col-lg-6">
     <textarea rows="3" class="form-control" name="{{ form.bio.name }}" id="{{ form.bio.id_for_label }}">{{ contact.bio }}</textarea>
             </div>
