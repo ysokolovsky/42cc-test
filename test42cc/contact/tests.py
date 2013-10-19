@@ -50,7 +50,7 @@ class TestContact(WebTest):
             'skype': 'skype1',
             'other': 'other2'
         }
-        page = self.client.post(reverse('edit_contacts'), data)
+        page = self.client.post(reverse('edit_contacts_ajax'), data)
         #self.assertRedirects(page, reverse('index'))
         page = self.app.get(reverse('index'))
         assert u"foo" in page
@@ -71,7 +71,7 @@ class TestContact(WebTest):
             'skype': 'skype1',
             'other': 'other2'
         }
-        page = self.client.post(reverse('edit_contacts'), data)
+        page = self.client.post(reverse('edit_contacts_ajax'), data)
         self.assertContains(page, 'This field is required')
         self.assertContains(page, 'valid date')
 
@@ -89,4 +89,4 @@ class TestContact(WebTest):
                                     follow=True,
                                     **{'HTTP_X_REQUESTED_WITH':
                                         'XMLHttpRequest'})
-        self.assertContains(page, 'Data saved')
+        self.assertContains(page, 'datepicker')
