@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block edit %}
 {{ form.media }}
-<form role="form" class="form-horizontal" enctype="multipart/form-data" method="POST" id="form">
+<form role="form" class="form-horizontal" enctype="multipart/form-data" method="POST" id="form" action="{% url 'edit_contacts_ajax' %}">
 {% csrf_token %}
 <div class="row">
 <div class="col-md-6">
