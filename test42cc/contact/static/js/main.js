@@ -6,21 +6,54 @@ $(document).ready(function () {
     }).parent().addClass('active');
 
 
-    $('#form').submit(function() { // catch the form's submit event
-        $.ajax({ // create an AJAX call...
-            data: $(this).serialize(), // get the form data
-            type: $(this).attr('method'), // GET or POST
-            url: $(this).attr('action'), // the file to call
-            beforeSend: function() {
-                        $("#form :input").attr("disabled", true);
-                        $('#success_message').text('Loading...');
-                            },
-            success: function(response) { // on success..
-                     $("#form :input").attr("disabled", false);
-                     $('#success_message').text('Data saved');
-            }
+    var options = {
+        target: '#form',
+        beforeSubmit: processRequest,
+        success: showResponse,
+        dataType: 'json'
+    };
 
-        });
-        return false;
+    $('#form').ajaxForm(options);
+
+    jQuery(document).ajaxStart(function(){
+        $('#success_message').html("<p>Loading..</p>");
     });
+
+    function processRequest() {
+        $('#submit').unbind('click');
+        $('form input').each( function() {
+            $( this ).attr( "disabled", "disabled" );
+        });
+        $('form textarea').each( function() {
+            $( this ).attr( "disabled", "disabled" );
+        });
+        return true;
+    }
+
+    jQuery(document).ajaxStop(function(){
+        $('form input').each( function() {
+            $( this ).removeAttr("disabled");
+        });
+        $('form textarea').each( function() {
+            $( this ).removeAttr("disabled");
+        });
+    });
+
+
+    function showResponse(responseText){
+        var data = responseText;
+        $('#form').find('.error').remove();
+        $('img.col-md-offset-1').attr('src', "/media/photo/" + $('#id_photo').val());
+        $('div.col-lg-6 a').attr('href', "/media/photo/" + $('#id_photo').val()).text("photo/" + $('#id_photo').val());
+        if(data['result'] == "error"){
+            $('#success_message').html("<p>Changes not saved</p>");
+            for (var k in data['response']) {
+                $('#form').find('input[name=' + k + ']').after('<div class="error">' + data['response'][k] + '</div>');
+                $('#form').find('textarea[name=' + k + ']').after('<div class="error">' + data['response'][k] + '</div>');
+            }
+        } else {
+            $('#success_message').html("<p>Changes saved</p>");
+        }
+    }
+
 });

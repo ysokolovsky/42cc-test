@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^edit/$', 'test42cc.contact.views.edit_contacts', name='edit_contacts'),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
+    url(r'^edit_ajax/$', 'test42cc.contact.views.edit_contacts_ajax', name='edit_contacts_ajax'),
 
     # url(r'^$', 'test42cc.views.home', name='home'),
     # url(r'^test42cc/', include('test42cc.foo.urls')),
