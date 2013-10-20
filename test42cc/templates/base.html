@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    {% load static %}
+    {% load static %}{% load edittag %}
     <title>ysokolovsky test task</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -34,7 +34,8 @@
           </ul>
           <ul class="nav navbar-nav pull-right">
               {% if user.is_authenticated %}
-                 <li><a href="{% url 'logout' %}">Logout</a></li>
+                 <li>{% edit_link user %}</li>
+                 <li><a href="{% url 'logout' %}"> Logout</a></li>
               {% else %}
                  <li><a href="{% url 'login' %}">Login</a></li>
               {% endif %}

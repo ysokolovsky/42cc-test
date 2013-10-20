@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from test42cc.contact.models import Request
 from django.http import HttpRequest
 from django.template import RequestContext, Template, Context
+from django.contrib.auth import authenticate
 
 
 class TestContact(WebTest):
@@ -92,6 +93,9 @@ class TestContact(WebTest):
         self.assertContains(page, 'datepicker')
 
     def test_t8_tag(self):
-        user = self.client.login(username='admin', password='admin')
+        user = authenticate(username='admin', password='admin')
         tag = Template('{% load edittag %}{% edit_link user %}').render(Context({'user': user}))
         self.assertEqual('<a href="/admin/auth/user/1/">(admin)</a>', tag)
+        self.client.login(username="admin", password="admin")
+        page = self.client.get(reverse('index'))
+        self.assertContains(page, '<a href="/admin/auth/user/1/">(admin)</a>')
