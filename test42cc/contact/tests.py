@@ -2,7 +2,7 @@ from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from test42cc.contact.models import Request
 from django.http import HttpRequest
-from django.template import RequestContext
+from django.template import RequestContext, Template, Context
 
 
 class TestContact(WebTest):
@@ -90,3 +90,8 @@ class TestContact(WebTest):
                                     **{'HTTP_X_REQUESTED_WITH':
                                         'XMLHttpRequest'})
         self.assertContains(page, 'datepicker')
+
+    def test_t8_tag(self):
+        user = self.client.login(username='admin', password='admin')
+        tag = Template('{% load edittag %}{% edit_link user %}').render(Context({'user': user}))
+        self.assertEqual('<a href="/admin/auth/user/1/">(admin)</a>', tag)
