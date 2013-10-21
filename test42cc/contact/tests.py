@@ -132,21 +132,21 @@ class TestContact(WebTest):
         self.assertIn('Model:', content.read())
         self.assertIn('error:', error.read())
 
-    def test_t10_signal(self):
-        Contact.objects.create()
-        contact = Contact.objects.latest()
-        contact.first_name = 'test'
-        contact.save()
-        contact.delete()
+    def test_t10_signals(self):
+        Contact.objects.create(bday='1990-01-01')
+        info = Contact.objects.latest('id')
+        info.f_name = 'test'
+        info.save()
+        info.delete()
         signals = Signals.objects.order_by("-date")[:3]
         signals = list(signals)
-        models_signals = [
+        models_singals = [
             ['Contact', 'delete'],
             ['Contact', 'edit'],
             ['Contact', 'create'],
         ]
         self.assertEqual(len(signals), 3)
-        for index, value in enumerate(models_signals):
+        for index, value in enumerate(models_singals):
             model, signal = value
             self.assertEqual(signals[index].model, model)
             self.assertEqual(signals[index].signal, signal)

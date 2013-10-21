@@ -8,14 +8,21 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'Signals'
+        db.create_table(u'contact_signals', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('object_id', self.gf('django.db.models.fields.IntegerField')()),
+            ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('model', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('signal', self.gf('django.db.models.fields.CharField')(max_length=50)),
+        ))
+        db.send_create_signal(u'contact', ['Signals'])
 
-        # Changing field 'Request.time'
-        db.alter_column(u'contact_request', 'time', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True))
 
     def backwards(self, orm):
+        # Deleting model 'Signals'
+        db.delete_table(u'contact_signals')
 
-        # Changing field 'Request.time'
-        db.alter_column(u'contact_request', 'time', self.gf('django.db.models.fields.DateTimeField')(auto_now=True))
 
     models = {
         u'contact.contact': {
@@ -28,6 +35,7 @@ class Migration(SchemaMigration):
             'jabber': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'l_name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
             'other': ('django.db.models.fields.TextField', [], {}),
+            'photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'skype': ('django.db.models.fields.CharField', [], {'max_length': '60'})
         },
         u'contact.request': {
@@ -37,6 +45,14 @@ class Migration(SchemaMigration):
             'method': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'path': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'time': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
+        },
+        u'contact.signals': {
+            'Meta': {'object_name': 'Signals'},
+            'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'model': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'object_id': ('django.db.models.fields.IntegerField', [], {}),
+            'signal': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }
     }
 
