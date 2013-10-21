@@ -4,8 +4,8 @@ from test42cc.contact.models import Contact, Request
 from test42cc.contact.forms import ContactForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-import json
 from django.http import HttpResponse
+import json
 
 
 def index(request):
@@ -30,7 +30,7 @@ def to_json(response, **kwargs):
     return response
 
 @login_required()
-def edit_contacts_ajax(request):
+def edit_contacts(request):
     contact = Contact.objects.get(pk=1)
     if request.method == 'POST':
         form = ContactForm(request.POST, request.FILES, instance=contact)
@@ -42,14 +42,7 @@ def edit_contacts_ajax(request):
             for k in form.errors:
                 response[k] = form.errors[k][0]
             return HttpResponse(json.dumps({'response': response, 'result': 'error'}))
-
-    return to_json({'status': 'error', 'data': None})
-
-
-@login_required()
-def edit_contacts(request):
-    contact = Contact.objects.get(pk=1)
-    form = ContactForm(instance=contact)
+    form = ContactForm()
 
     return render_to_response(
         'contact/edit.html', {'form': form},

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block edit %}
 {{ form.media }}
-<form role="form" class="form-horizontal" enctype="multipart/form-data" method="POST" id="form" action="{% url 'edit_contacts_ajax' %}">
+<form role="form" class="form-horizontal" enctype="multipart/form-data" method="POST" id="form" action="{% url 'edit_contacts' %}">
 {% csrf_token %}
 <div class="row">
 <div class="col-md-6">
@@ -34,7 +34,7 @@
         </div>
 
   </div>
-    <img class='col-md-offset-1' width="300" src="{{MEDIA_URL}}{{ form.photo.value }}">
+    {% if form.photo.value %}<img class='col-md-offset-1' width="300" src="{{MEDIA_URL}}{{ form.photo.value }}">{% endif %}
 </div>
 
 <div class="col-md-6">
