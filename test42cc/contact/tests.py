@@ -6,7 +6,7 @@ from django.template import RequestContext, Template, Context
 from django.contrib.auth import authenticate
 from django.core.management import get_commands, call_command
 from StringIO import StringIO
-from django.db import models
+from .models import Contact, Signals
 
 
 class TestContact(WebTest):
@@ -131,3 +131,22 @@ class TestContact(WebTest):
         error.seek(0)
         self.assertIn('Model:', content.read())
         self.assertIn('error:', error.read())
+
+    def test_t10_signals(self):
+        Contact.objects.create(bday='1990-01-01')
+        info = Contact.objects.latest('id')
+        info.f_name = 'test'
+        info.save()
+        info.delete()
+        signals = Signals.objects.order_by("-date")[:3]
+        signals = list(signals)
+        models_singals = [
+            ['Contact', 'delete'],
+            ['Contact', 'edit'],
+            ['Contact', 'create'],
+        ]
+        self.assertEqual(len(signals), 3)
+        for index, value in enumerate(models_singals):
+            model, signal = value
+            self.assertEqual(signals[index].model, model)
+            self.assertEqual(signals[index].signal, signal)

@@ -8,15 +8,20 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Contact.photo'
-        db.add_column(u'contact_contact', 'photo',
-                      self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True),
-                      keep_default=False)
+        # Adding model 'Request'
+        db.create_table(u'contact_request', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('time', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('host', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('path', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('method', self.gf('django.db.models.fields.CharField')(max_length=255)),
+        ))
+        db.send_create_signal(u'contact', ['Request'])
 
 
     def backwards(self, orm):
-        # Deleting field 'Contact.photo'
-        db.delete_column(u'contact_contact', 'photo')
+        # Deleting model 'Request'
+        db.delete_table(u'contact_request')
 
 
     models = {
@@ -30,7 +35,6 @@ class Migration(SchemaMigration):
             'jabber': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'l_name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
             'other': ('django.db.models.fields.TextField', [], {}),
-            'photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'skype': ('django.db.models.fields.CharField', [], {'max_length': '60'})
         },
         u'contact.request': {
@@ -39,7 +43,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'method': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'path': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'time': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
+            'time': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         }
     }
 
