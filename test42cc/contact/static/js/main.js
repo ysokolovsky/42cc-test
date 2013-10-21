@@ -43,8 +43,14 @@ $(document).ready(function () {
     function showResponse(responseText){
         var data = responseText;
         $('#form').find('.error').remove();
-        $('img.col-md-offset-1').attr('src', "/media/photo/" + $('#id_photo').val());
-        $('div.col-lg-6 a').attr('href', "/media/photo/" + $('#id_photo').val()).text("photo/" + $('#id_photo').val());
+        if ($('#id_photo').val()) {
+            $('img.col-md-offset-1').attr('src', "/media/photo/" + $('#id_photo').val());
+            $('div.col-lg-6 a').attr('href', "/media/photo/" + $('#id_photo').val()).text("photo/" + $('#id_photo').val());
+        } else {
+            $('img.col-md-offset-1').attr('src', "");
+            $('div.col-lg-6 a').attr('href', "").text("");
+        }
+
         if(data['result'] == "error"){
             $('#success_message').html("<p>Changes not saved</p>");
             for (var k in data['response']) {

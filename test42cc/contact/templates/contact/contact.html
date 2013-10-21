@@ -5,7 +5,7 @@
 	<p>Name: {{ contact.f_name }}</p>
 	<p>Last name: {{ contact.l_name }}</p>
 	<p>Date of birth: {{ contact.bday|date:"Y-m-d" }}</p>
-	<img width="300" src="{{MEDIA_URL}}{{contact.photo}}">
+	{% if contact.photo %}<img width="300" src="{{MEDIA_URL}}{{contact.photo}}">{% endif %}
   </div>
   <div class="col-md-6">
 	<p>Contacts:</p>

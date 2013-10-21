@@ -35,7 +35,8 @@ class TestContact(WebTest):
         context = RequestContext(HttpRequest())
         self.assertTrue('settings' in context)
 
-    def test_t5t6_edit(self):
+    def test_t5_edit(self):
+        #test login and data save
         page = self.app.get(reverse('edit_contacts'))
         self.assertRedirects(page, reverse('login')+'?next=/edit/')
         self.client.login(username='admin', password='admin')
@@ -51,8 +52,7 @@ class TestContact(WebTest):
             'skype': 'skype1',
             'other': 'other2'
         }
-        page = self.client.post(reverse('edit_contacts_ajax'), data)
-        #self.assertRedirects(page, reverse('index'))
+        page = self.client.post(reverse('edit_contacts'), data)
         page = self.app.get(reverse('index'))
         assert u"foo" in page
         assert u"bar" in page
@@ -62,6 +62,10 @@ class TestContact(WebTest):
         assert u"ya@jabber.org" in page
         assert u"skype1" in page
         assert u"other2" in page
+
+    def test_t5_negative_data(self):
+        #test on negative data
+        self.client.login(username="admin", password="admin")
         data = {
             'f_name': "foo",
             'l_name': "",
@@ -72,10 +76,12 @@ class TestContact(WebTest):
             'skype': 'skype1',
             'other': 'other2'
         }
-        page = self.client.post(reverse('edit_contacts_ajax'), data)
+        page = self.client.post(reverse('edit_contacts'), data)
         self.assertContains(page, 'This field is required')
         self.assertContains(page, 'valid date')
 
+    def test_t6_ajax(self):
+        self.client.login(username="admin", password="admin")
         data = {
             'f_name': "foo",
             'l_name': "bar",
@@ -90,7 +96,20 @@ class TestContact(WebTest):
                                     follow=True,
                                     **{'HTTP_X_REQUESTED_WITH':
                                         'XMLHttpRequest'})
+        self.assertContains(page, 'success')
+
+    def test_t6_widget(self):
+        widget_static = [
+            'jquery-ui-1.10.3.custom.min.js',
+            'main.js',
+            'jquery-ui-1.10.3.custom.min.css'
+        ]
+        self.client.login(username='admin', password='admin')
+        page = self.client.get(reverse('edit_contacts'))
+        self.assertContains(page, 'id_bday')
         self.assertContains(page, 'datepicker')
+        for script in widget_static:
+            self.assertContains(page, script)
 
     def test_t8_tag(self):
         user = authenticate(username='admin', password='admin')
