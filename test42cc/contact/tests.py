@@ -4,6 +4,7 @@ from test42cc.contact.models import Request
 from django.http import HttpRequest
 from django.template import RequestContext, Template, Context
 from django.contrib.auth import authenticate
+from django.core.management import get_commands, call_command
 
 
 class TestContact(WebTest):
@@ -118,3 +119,6 @@ class TestContact(WebTest):
         self.client.login(username="admin", password="admin")
         page = self.client.get(reverse('index'))
         self.assertContains(page, '<a href="/admin/auth/user/1/">(admin)</a>')
+
+    def test_t9_command(self):
+        self.assertTrue('mycommand' in get_commands())
