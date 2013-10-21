@@ -5,6 +5,8 @@ from django.http import HttpRequest
 from django.template import RequestContext, Template, Context
 from django.contrib.auth import authenticate
 from django.core.management import get_commands, call_command
+from StringIO import StringIO
+from django.db import models
 
 
 class TestContact(WebTest):
@@ -122,3 +124,10 @@ class TestContact(WebTest):
 
     def test_t9_command(self):
         self.assertTrue('mycommand' in get_commands())
+        content = StringIO()
+        error = StringIO()
+        call_command('mycommand', stdout=content, stderr=error, error=True)
+        content.seek(0)
+        error.seek(0)
+        self.assertIn('Model:', content.read())
+        self.assertIn('error:', error.read())
