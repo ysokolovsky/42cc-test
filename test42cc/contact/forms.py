@@ -29,11 +29,9 @@ class PriorityForm(ModelForm):
 
     class Meta:
         model = Request
-        field = ('priority')
+        field = ('priority',)
+        exclude = ('host', 'path', 'method',)
 
     def __init__(self, *args, **kwargs):
         super(PriorityForm, self).__init__(*args, **kwargs)
         self.fields['priority'].widget = forms.Select(choices=[(0, 0), (1, 1)])
-        self.fields['host'].required = False
-        self.fields['path'].required = False
-        self.fields['method'].required = False

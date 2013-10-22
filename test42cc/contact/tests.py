@@ -7,6 +7,7 @@ from django.core.management import get_commands, call_command
 from django.core.urlresolvers import reverse
 from test42cc.contact.models import Request, Contact, Signals
 from test42cc.contact.forms import ContactForm
+from test42cc.contact.middleware import RequestMiddleware
 
 
 class TestContact(WebTest):
@@ -155,5 +156,20 @@ class TestContact(WebTest):
             self.assertEqual(signals[index].signal, signal)
 
     def test_t13_priority(self):
+        page = self.client.post(reverse('show_requests'), {'priority': 0}, follow=True)
+        self.assertIn('priority: 0', str(page))
+        req = self.app.get(reverse('index'))
+        req = self.app.get(reverse('index'))
+        req = self.app.get(reverse('index'))
+        self.assertNotIn('priority: 1', str(page))
+        test_req = Request.objects.get(id=1)
+        test_req.priority = 1
+        test_req.save()
         page = self.client.post(reverse('show_requests'), {'priority': 1}, follow=True)
-        self.assertIn('priority: 1', str(page))
+        self.assertContains(page, "priority: 1", count=1)
+        test_req = Request.objects.get(id=2)
+        test_req.priority = 1
+        test_req.save()
+        page = self.client.post(reverse('show_requests'), {'priority': 1}, follow=True)
+        self.assertContains(page, "priority: 1", count=2)
+
