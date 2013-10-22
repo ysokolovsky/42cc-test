@@ -153,3 +153,7 @@ class TestContact(WebTest):
             model, signal = value
             self.assertEqual(signals[index].model, model)
             self.assertEqual(signals[index].signal, signal)
+
+    def test_t13_priority(self):
+        page = self.client.post(reverse('show_requests'), {'priority': 1}, follow=True)
+        self.assertIn('priority: 1', str(page))

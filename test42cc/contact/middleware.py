@@ -6,6 +6,7 @@ class RequestMiddleware(object):
         req = Request(
             path=request.path,
             method=request.method,
-            host=request.get_host())
+            host=request.get_host(),
+            priority=1)
         req.save()
         return None
