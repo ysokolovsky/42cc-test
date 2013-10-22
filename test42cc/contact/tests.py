@@ -156,4 +156,4 @@ class TestContact(WebTest):
 
     def test_t13_priority(self):
         page = self.client.post(reverse('show_requests'), {'priority': 1}, follow=True)
-        self.assertIn('priority: 1', page)
+        self.assertIn('priority: 1', str(page))

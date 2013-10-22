@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from test42cc.contact.models import Contact, Request
-from test42cc.contact.forms import ContactForm
+from test42cc.contact.forms import ContactForm, PriorityForm
 
 
 def index(request):
@@ -16,9 +16,19 @@ def index(request):
 
 
 def show_requests(request):
-    requests = Request.objects.all().order_by('time')[:10]
+    requests = Request.objects.all().order_by('priority')[:10]
+
+    if request.method == 'POST':
+        form = PriorityForm(request.POST)
+
+        if form.is_valid():
+            if form.cleaned_data['priority'] == 1:
+                requests = Request.objects.all().order_by('-priority')[:10]
+    else:
+        form = PriorityForm()
+
     return render_to_response(
-        'contact/requests.html', {'requests': requests},
+        'contact/requests.html', {'requests': requests, 'form': form},
         context_instance=RequestContext(request))
 
 

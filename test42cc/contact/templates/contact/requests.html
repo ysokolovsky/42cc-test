@@ -2,13 +2,26 @@
 {% block requests %}
 <div class="row">
 
+<form role="form" class="form-horizontal" method="POST">
+{% csrf_token %}
+  <div class="form-group" >
+    <span class="help-block">{{ form.priority.errors }}</span>
+    <label class="control-label" for="{{ form.f_name.id_for_label }}">Priority</label>
+
+        {{ form.priority }}
+
+  </div>
+  <input type="submit" value="Show" id="form_submit">
+</form>
+
 {% for r in requests %}
-  <div class="span12">
+  <div class="col-md-12">
   <hr>
   <p>Time: {{ r.time }}</p>
   <p>Host: {{ r.host }}</p>
   <p>Path: {{ r.path }}</p>
   <p>method: {{ r.method }}</p>
+  <p>priority: {{ r.priority }}</p>
   </div>
 {% endfor %}
 </div>
