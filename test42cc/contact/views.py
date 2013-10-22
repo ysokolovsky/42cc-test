@@ -35,22 +35,20 @@ def show_requests(request):
 @login_required()
 def edit_contacts(request):
     contact = Contact.objects.get(pk=1)
-    if request.method == 'POST' and request.is_ajax():
+    if request.method == 'POST':
         form = ContactForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
             form.save()
-            return HttpResponse(json.dumps({'status': 'success', 'data': str(reverse('edit_contacts'))}))
+            if request.is_ajax():
+                return HttpResponse(json.dumps({'status': 'success', 'data': str(reverse('edit_contacts'))}))
+            else:
+                return redirect(reverse('index'))
         else:
-            response = {}
-            for k in form.errors:
-                response[k] = form.errors[k][0]
-            return HttpResponse(json.dumps({'response': response, 'result': 'error'}))
-
-    if request.method == 'POST' and not request.is_ajax():
-        form = ContactForm(request.POST, request.FILES, instance=contact)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('index'))
+            if request.is_ajax():
+                response = {}
+                for k in form.errors:
+                    response[k] = form.errors[k][0]
+                return HttpResponse(json.dumps({'response': response, 'result': 'error'}))
     else:
             form = ContactForm()
 
