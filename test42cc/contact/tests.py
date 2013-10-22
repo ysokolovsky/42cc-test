@@ -1,12 +1,12 @@
 from django_webtest import WebTest
-from django.core.urlresolvers import reverse
-from test42cc.contact.models import Request
+from StringIO import StringIO
 from django.http import HttpRequest
 from django.template import RequestContext, Template, Context
 from django.contrib.auth import authenticate
 from django.core.management import get_commands, call_command
-from StringIO import StringIO
-from .models import Contact, Signals
+from django.core.urlresolvers import reverse
+from test42cc.contact.models import Request, Contact, Signals
+from test42cc.contact.forms import ContactForm
 
 
 class TestContact(WebTest):
@@ -40,7 +40,7 @@ class TestContact(WebTest):
 
     def test_t5_edit(self):
         #test login and data save
-        page = self.app.get(reverse('edit_contacts'))
+        page = self.client.get(reverse('edit_contacts'))
         self.assertRedirects(page, reverse('login')+'?next=/edit/')
         self.client.login(username='admin', password='admin')
         page = self.client.get(reverse('edit_contacts'))
@@ -68,20 +68,19 @@ class TestContact(WebTest):
 
     def test_t5_negative_data(self):
         #test on negative data
-        self.client.login(username="admin", password="admin")
         data = {
             'f_name': "foo",
             'l_name': "",
-            'bday': 'ghggjjhg',
+            'bday': '1990-01-bh',
             'bio': 'bio',
             'email': 'ya@yandex.ru',
             'jabber': 'ya@jabber.org',
             'skype': 'skype1',
             'other': 'other2'
         }
-        page = self.client.post(reverse('edit_contacts'), data)
-        self.assertContains(page, 'This field is required')
-        self.assertContains(page, 'valid date')
+        form = ContactForm(data=data)
+        assert u'This field is required' in str(form)
+        assert u'valid date' in str(form)
 
     def test_t6_ajax(self):
         self.client.login(username="admin", password="admin")

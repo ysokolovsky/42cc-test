@@ -1,11 +1,11 @@
-from django.shortcuts import render_to_response
+import json
+from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 from test42cc.contact.models import Contact, Request
 from test42cc.contact.forms import ContactForm
-from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
-from django.http import HttpResponse
-import json
 
 
 def index(request):
@@ -22,27 +22,27 @@ def show_requests(request):
         context_instance=RequestContext(request))
 
 
-def to_json(response, **kwargs):
-    response = HttpResponse(json.dumps(response))
-    response['mimetype'] = "text/javascript"
-    response['Pragma'] = "no cache"
-    response['Cache-Control'] = "no-cache, must-revalidate"
-    return response
-
 @login_required()
 def edit_contacts(request):
     contact = Contact.objects.get(pk=1)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.is_ajax():
         form = ContactForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
             form.save()
-            return to_json({'status': 'success', 'data': str(reverse('edit_contacts'))})
+            return HttpResponse(json.dumps({'status': 'success', 'data': str(reverse('edit_contacts'))}))
         else:
             response = {}
             for k in form.errors:
                 response[k] = form.errors[k][0]
             return HttpResponse(json.dumps({'response': response, 'result': 'error'}))
-    form = ContactForm()
+
+    if request.method == 'POST' and not request.is_ajax():
+        form = ContactForm(request.POST, request.FILES, instance=contact)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('index'))
+    else:
+            form = ContactForm()
 
     return render_to_response(
         'contact/edit.html', {'form': form},

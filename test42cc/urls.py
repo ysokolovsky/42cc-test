@@ -1,9 +1,9 @@
-from django.conf.urls import patterns, include, url
-from django.contrib.auth.views import login
-from django.conf import settings
-from django.contrib import admin
 import sys
 import re
+from django.contrib import admin
+from django.contrib.auth.views import login
+from django.conf import settings
+from django.conf.urls import patterns, include, url
 
 admin.autodiscover()
 
