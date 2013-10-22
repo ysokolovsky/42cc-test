@@ -130,6 +130,10 @@ class TestContact(WebTest):
         error.seek(0)
         self.assertIn('Model:', content.read())
         self.assertIn('error:', error.read())
+        assert u'models.Contact' in content.getvalue()
+        assert u'Objects count: 1' in content.getvalue()
+        assert u'models.Request' in content.getvalue()
+        assert u'Objects count: 0' in content.getvalue()
 
     def test_t10_signals(self):
         Contact.objects.create(bday='1990-01-01')
